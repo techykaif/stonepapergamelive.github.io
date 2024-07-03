@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 100px;
+    }
+
+    .container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .container button {
+        border: none;
+        background-color: transparent;
+        transition: scale 0.5s;
+    }
+
+    .container button:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+        animation: shake ease-in-out 1s infinite;
+    }
+    @keyframes shake {
+        0%{
+            rotate: 10deg;
+        }
+        50%{
+            rotate: -10deg;
+            }
+            100%{
+                rotate: 10deg;
+                }
+
+        
+    }
+
+    #playAgain {
+        width: 10%;
+        height: 40px;
+        background-color: transparent;
+        font-size: 20px;
+        transition: transform 0.3s;
+    }
+
+    #playAgain:hover {
+        cursor: pointer;
+        box-shadow: 0px 0px 10px aqua;
+        transform: scale(1.1);
+    }
+    @media (max-width: 1200px) {
+        #playAgain {
+            width: 20%;
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        #playAgain {
+            width: 30%;
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 320px) {
+        #playAgain {
+            width: 40%;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<body>
+
+    <h1>Rock Paper Scissors Game</h1>
+    <div>
+        <span>Computer Score: </span>
+        <span id="computerScore">0</span>
+        <span>Player Score: </span>
+        <span id="playerScore">0</span>
+    </div>
+    <div class="container">
+        <button id="rock" onclick="checkWin(event)">
+            <img src="istockphoto-1395632555-612x612-2.jpg" alt="rock" width="100">
+        </button>
+        <button id="paper" onclick="checkWin(event)">
+            <img src="istockphoto-1395632555-612x612-3.jpg" alt="paper" width="100">
+        </button>
+        <button id="scissors" onclick="checkWin(event)">
+            <img src="istockphoto-1395632555-612x612-4.jpg" alt="scissors" width="100">
+        </button>
+    </div>
+    <button id="playAgain" onclick="playAgain()">
+        Play Again
+    </button>
+
+</body>
+<script>
+    let playerScore = 0;
+    let computerScore = 0;
+
+    function checkWin(event) {
+        const playerChoice = event.currentTarget.id;
+        const choices = ["rock", "paper", "scissors"];
+        const computerChoiceIndex = Math.floor(Math.random() * 3);
+        const computerChoice = choices[computerChoiceIndex];
+
+        let result;
+        if (playerChoice === computerChoice) {
+            result = "It's a tie!";
+        } else if (
+            (playerChoice === "rock" && computerChoice === "scissors") ||
+            (playerChoice === "paper" && computerChoice === "rock") ||
+            (playerChoice === "scissors" && computerChoice === "paper")
+        ) {
+            result = "You Win!";
+            playerScore++;
+        } else {
+            result = "You Lose!";
+            computerScore++;
+        }
+
+        document.getElementById('playerScore').textContent = playerScore;
+        document.getElementById('computerScore').textContent = computerScore;
+
+        alert(`Player Choice: ${playerChoice}\nComputer Choice: ${computerChoice}\n${result}`);
+    }
+
+    function playAgain() {
+        // Reload the page to reset the game state
+        location.reload();
+    }
+</script>
+
+</html>
